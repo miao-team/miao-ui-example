@@ -14,7 +14,7 @@
 >
 > 安装：`npm i miao-ui`， `yarn add miao-ui`
 > 演示项目安装：`npm i miao-ui-example`， `yarn add miao-ui-example`
-## _注意_
+## _注意_ 
 
 > _当前版本为开发版本,请暂时不要下载或用于项目中！_
 
