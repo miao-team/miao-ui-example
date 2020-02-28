@@ -5,16 +5,16 @@ import Taro, { Component, Config } from "@tarojs/taro";
 
 import "./index.scss";
 //MNavbar, ETitleBar, EGrid, EIcon, , EDivider, ETabBar, Constant
-import { MLayout, MTabBar, MGrid, MTitleBar, Constant, MIcon, MButton, MDivider } from 'miao-ui'
-import { classNames } from 'miao-ui/utils'
+import { MLayout, MTabBar, MGrid, MTitleBar, Constant, MIcon, MButton, Common } from 'miao-ui'
+import classNames from 'classnames'
 
 import ExampleItems from "./items"
+
 export default class Example extends Component {
 
-    private header = {
-        title: '渺子工作室-MiaoUI',
-    };
+    private header = "渺子工作室-MiaoUI";
     private footer = {
+        componentType: 'tabbar',
         active: 0,
         bgColor: "black",
         activeColor: 'red',
@@ -35,11 +35,7 @@ export default class Example extends Component {
 
     constructor(porps) {
         super(porps)
-
-        this.state = { tabIndex: 0 }
-
-
-
+        this.state = { tabIndex: 1, demo: 0 ,headerOpacity:0}
     }
     config: Config = {
         navigationBarTitleText: "渺子工作室-MiaoUI",
@@ -137,6 +133,50 @@ export default class Example extends Component {
                         )
                     })}
                 </MGrid>
+                ,
+                <MGrid col={3} gap={1} className="text-center bg-white">
+                    {Constant.Color.gradualColor.map((item, key) => {
+                        return (
+                            <View key={key}
+                                className={classNames("text-md padding-10", `bg-${item.title}`)}>
+                                {item.title}
+                            </View>
+                        )
+                    })}
+                </MGrid>
+                ,
+                <MGrid col={3} gap={1} className="text-center bg-white">
+                    {Constant.Color.gradualColor.map((item, key) => {
+                        return (
+                            <View key={key}
+                                className={classNames("text-md padding-10", `bg-${item.title}`)}>
+                                {item.title}
+                            </View>
+                        )
+                    })}
+                </MGrid>
+                ,
+                <MGrid col={3} gap={1} className="text-center bg-white">
+                    {Constant.Color.gradualColor.map((item, key) => {
+                        return (
+                            <View key={key}
+                                className={classNames("text-md padding-10", `bg-${item.title}`)}>
+                                {item.title}
+                            </View>
+                        )
+                    })}
+                </MGrid>
+                ,
+                <MGrid col={3} gap={1} className="text-center bg-white">
+                    {Constant.Color.gradualColor.map((item, key) => {
+                        return (
+                            <View key={key}
+                                className={classNames("text-md padding-10", `bg-${item.title}`)}>
+                                {item.title}
+                            </View>
+                        )
+                    })}
+                </MGrid>
 
 
             ],
@@ -157,16 +197,56 @@ export default class Example extends Component {
         ]
 
 
-
-
-
         return (
             <MLayout
-                headerConfig={this.header}
-                footerConfig={this.footer}
+                onTouchTop={
+                    () => {
+                        Taro.showToast({ title: "上拉", icon: 'none' })
+                        setTimeout(() => {
+                            this.setState({ demo: 2 })
+                            Taro.showToast({ title: "上拉完成", icon: 'none' })
+                        }, 5000)
+                    }
+                }
+                onTouchBottom={
+                    () => {
+                        Taro.showToast({ title: "下拉", icon: 'none' })
+                        setTimeout(() => {
+                            this.setState({ demo: 2 })
+                            Taro.showToast({ title: "下拉完成", icon: 'none' })
+                        }, 5000)
+                    }
+                }
+                onTouchLeft={() => console.log('向左滑动了')}
+                onTouchRight={() => console.log('向右滑动了')}
+                onTouching={(e) => console.log(e)}
+                header={this.header}
+                footer={this.footer}
             >
                 {ViewComponetns[this.state.tabIndex]}
-            </MLayout>
+            </MLayout >
         );
     }
 }
+
+//
+// <View className="">
+//     34
+//
+//
+//     <MLoading
+//         type="line"
+//         show={true}
+//
+//         noMore={true}
+//     />
+//     <MLoading type="bar" show={true} />
+//     <MLoading
+//         type="modal"
+//         show={true}
+//         imgUrl="https://mp-yys-1255362963.cos.ap-chengdu.myqcloud.com/loading.gif"
+//     />
+// </View>
+
+
+//

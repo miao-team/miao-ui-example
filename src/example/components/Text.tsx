@@ -1,88 +1,90 @@
 import { View } from "@tarojs/components";
-import Taro, { Component, pxTransform } from "@tarojs/taro";
-import { EPanel, EText, ELayout, ENavbar, ECard } from 'miao-ui'
+import Taro, { Component, Config } from "@tarojs/taro";
+import { MLayout, MNavbar, MTitleBar, MGrid MCard, MText, Constant, MNav, MButton } from 'miao-ui'
 import "../index.scss";
 
-import size from "../constant/size";
-import color from "../constant/color";
-
-const sizeTip = [
-    "说明文本，标签等关注度低的文字",
-    "页面辅助信息，次级内容等",
-    "页面默认字体",
-    "同上",
-    "页面小标题，第一层级内容显示",
-    "页面大标题，用于结果页的提示信息",
-    "用于金额数字等",
-    "用于图标或者大数字",
-    "用于特大提示"
-];
-
+import { MTextExample } from '../initParams'
 export default class Text extends Component {
+    config: Config = {
+        navigationBarTitleText: "Text"
+    };
 
 
+    componentWillMount() {
+        Taro.eventCenter.on("broadcastNavHeightEvent", (messageEvent) => {
+            console.log(messageEvent, "asdfasfasdfadsf")
+        })
+    }
+
+    constructor() {
+        super()
+        this.state = {
+            text: 'text 测试文字',
+        }
+    }
+
+
+    private onClickText(item, items, index) {
+        console.log(item)
+        item && this.setState({
+            [`${item}`]: items.text
+        })
+        console.log(this.state);
+    }
 
     render() {
 
-
-        const sizeComponent = size.fontSize.map((item, index) => (
-            <View key={item}>
-                <ECard bgColor="grey">
-                    <EText text={sizeTip[index]} size={item} />
-
-                </ECard>
-            </View>
-        ));
-        const colorComponent = color.normalColor.map(item => (
-            <ECard key={item.title} bgColor="light-gray">
-                <EText textColor={item.title}>{item.title}</EText>
-            </ECard>
-        ));
-
-        const headerView = <View className="header"><ENavbar shadow>Text</ENavbar></View>
+        const tabsNav = [
+            { text: 'A', icon: "home", id: 1 },
+            { text: 'B', icon: "home", id: 1 },
+            { text: 'C', icon: "home", id: 1 },
+        ];
 
 
+        const initParamsView = Object.keys(MTextExample).map((item) => {
 
 
+            if (typeof MTextExample[item] == "object") {
+
+                const navItems = MTextExample[item].map(it => {
+                    return {
+                        text: (typeof it === "boolean") ? (it ? 'Y' : 'N') : it,
+                    }
+                })
+                return <MNav
+                    title={item}
+                    titleClassName="text-red text-right"
+                    titleStyle={{ width: "100px" }}
+                    className="solid-bottom text-md"
+                    items={navItems}
+                    itemClassName="padding-x-15"
+                    onClick={(items, index) => this.onClickText(item, items, index)}
+                />
+            }
+        })
+
+
+
+        const headerView = <MNavbar shadow>Text 演示</MNavbar>
         return (
-            <ELayout renderHeader={headerView}>
-                <EPanel
-                    title='Text Size演示'
-                    className="bg-white"
-                    description="Icon 布局"
-                    headerBorder
-                    clearFixBottom
-                >
-                    {sizeComponent}
-                </EPanel>
+            <MLayout
+                disable
+                header={headerView}
+            >
 
-                <EPanel
-                    title='Text Color演示'
-                    className="bg-white"
-                    description="Icon 布局"
-                    headerBorder
-                    clearFixBottom
-                >
-                    {colorComponent}
-                </EPanel>
-                <EPanel
-                    title='Text 文字截断演示'
-                    className="bg-white"
-                    description="Icon 布局"
-                    headerBorder
-                >
-                    <ECard bgColor="grey">
-                        <View style={{ width: pxTransform(300) }}>
-                            <EText cut align="left">
-                                泰国、新加坡、印度尼西亚~{" "}
-                            </EText>
-                        </View>
-                    </ECard>
-                </EPanel>
+                <MCard
+                    className="bg-white margin-20 solid"
+                    contentClassName="text-center padding-x-5 padding-y-20">
+                    <MText {...this.state} />
+                </MCard>
+                <MTitleBar
+                    type="border-title"
+                    className="padding-5 solid-bottom" title="参数" subTitle="选择不同参数 来查看字体效果"></MTitleBar>
 
 
-            </ELayout>
+                {initParamsView}
 
-        );
+            </MLayout>
+        )
     }
 }

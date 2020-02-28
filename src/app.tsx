@@ -6,12 +6,10 @@ import Home from "./example/index";
 if (process.env.NODE_ENV !== "production" && process.env.TARO_ENV === "h5") {
     require("nerv-devtools");
 }
+import './app.scss'
+import './miao-ui/styles/index.scss'
 
 
-
-
-
-import "./app.scss";
 
 class App extends Component {
     config: Config = {
@@ -23,30 +21,61 @@ class App extends Component {
             {
                 root: "example",
                 pages: [
+                    /**
+                     * Style
+                     */
+                    "components/Color",
+                    "components/TextColor",
+                    "components/BtnColor",
+                    "components/Animation",
+                    "components/Size",
+                    "components/Border",
+                    "components/Shadow",
+                    "components/Margin",
+                    "components/Padding",
+                    "components/Radius",
+                    "components/Transition",
+
+                    "components/Panel",
+                    //views
+                    "components/Button",
+
+
+                    "components/Loading",
+
+                    //
+
+                    "components/Layout",
+                    "components/Header",
+                    "components/NavBar",
+                    "components/Footer",
+                    "components/TabBar",
+                    "components/Text",
+                    "components/Image",
+                    "components/Content",
+                    //
                     "components/Icon",
-                    // "components/Button",
-                    // "components/Text",
-                    // "components/Tag",
+                    "components/Avatar",
+                    "components/Divider",
+
+                    "components/NoticeBar",
+
+
                     // "components/Flex",
-                    // "components/Swiper",
+                    "components/Swiper",
                     // "components/TitleBar",
-                    // "components/MenuList",
+                    "components/MenuList",
+                    "components/Item",
+                    "components/List",
                     // "components/TabBar",
-                    // "components/Tag",
+                    "components/Tag",
                     // "components/Page",
-                    // "components/Tabs",
+                    "components/Tabs",
                     // // "components/TabNav",
                     // "components/Text",
-                    //"components/Message"
+                    "components/Message"
                 ]
             }],
-        window: {
-            backgroundTextStyle: "light",
-            navigationBarBackgroundColor: "#fff",
-            navigationBarTitleText: "WeChat",
-            navigationBarTextStyle: "black"
-        },
-        // tabBar 配置信息
 
     };
 
@@ -59,7 +88,6 @@ class App extends Component {
     // 请勿修改此函数
     render() {
         return (
-
             <Home />
         );
     }

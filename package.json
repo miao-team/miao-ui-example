@@ -24,7 +24,9 @@
 		"dev:h5": "npm run build:h5 -- --watch",
 		"dev:rn": "npm run build:rn -- --watch",
 		"dev:qq": "npm run build:qq -- --watch",
-		"dev:quickapp": "npm run build:quickapp -- --watch"
+		"dev:quickapp": "npm run build:quickapp -- --watch",
+		"demo": "node scripts/demo",
+		"com": "node scripts/component"
 	},
 	"author": "",
 	"license": "MIT",
@@ -52,6 +54,8 @@
 		"loaders.css": "^0.1.2",
 		"nerv-devtools": "^1.5.6",
 		"nervjs": "^1.5.6",
+		"react": "^16.12.0",
+		"react-style": "^0.5.5",
 		"redux": "^4.0.5",
 		"taro-icons": "^0.3.0",
 		"taro-ui": "^2.2.4",

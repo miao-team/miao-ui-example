@@ -1,66 +1,103 @@
-
 import { View } from "@tarojs/components";
-import Taro, { Component } from "@tarojs/taro";
-
-import classNames from 'classnames'
-import { EPanel, EGrid, EButton, EDivider, EPage, ENavbar } from 'miao-ui'
+import Taro, { Component, Config } from "@tarojs/taro";
+import { MLayout, MNavbar, MTitleBar, MGrid MCard, MText, Constant, MNav, MButton } from 'miao-ui'
 import "../index.scss";
-export default class Button extends Component {
 
+import { MTextExample } from '../initParams'
+export default class Button extends Component {
+    config: Config = {
+        navigationBarTitleText: "Text"
+    };
+
+
+
+    constructor() {
+        super()
+        this.state = {
+            text: 'text 测试文字',
+        }
+    }
+
+
+    private onClickText(item, items, index) {
+        console.log(item)
+        item && this.setState({
+            [`${item}`]: items.text
+        })
+        console.log(this.state);
+    }
 
     render() {
-        const headerView = <View className="header"><ENavbar boxShow>Button 演示</ENavbar></View>
 
+        const tabsNav = [
+            { text: 'A', icon: "home", id: 1 },
+            { text: 'B', icon: "home", id: 1 },
+            { text: 'C', icon: "home", id: 1 },
+        ];
+
+
+        const initParamsView = Object.keys(MTextExample).map((item) => {
+
+
+            if (typeof MTextExample[item] == "object") {
+
+                const navItems = MTextExample[item].map(it => {
+                    return {
+                        text: (typeof it === "boolean") ? (it ? 'Y' : 'N') : it,
+                    }
+                })
+                return <MNav
+                    title={item}
+                    titleClassName="text-red text-right"
+                    titleStyle={{ width: "100px" }}
+                    className="solid-bottom text-md"
+                    items={navItems}
+                    onClick={(items, index) => this.onClickText(item, items, index)}
+                />
+            }
+        })
+
+
+
+        const headerView = <MNavbar shadow>Text 演示</MNavbar>
+
+
+
+
+        const navItems = [
+            { text: 'A' },
+            { text: 'B' }
+        ]
         return (
-            <EPage renderHeader={headerView}>
-                <EPanel
-                    
-                    className="bg-white"
-                    headerBorder
-                    clearFixBottom
-                >
+            <MLayout
+                disable
+                header={headerView}
+            >
 
-                    <EDivider className="margin-y-10" size={12}>Size 属性</EDivider>
-                    <EGrid col={4} gap={10}>
-                        <EButton size="mini">mini</EButton>
-                        <EButton size="small">small</EButton>
-                        <EButton >normal</EButton>
-                        <EButton size="large">large</EButton>
-                    </EGrid>
-                    <EDivider className="margin-y-10" size={12}>样式属性</EDivider>
-                    <EGrid col={4} gap={10}>
-                        <EButton size="small" circle>circle</EButton>
-                        <EButton size="small" outline>outline</EButton>
-                        <EButton size="small" inline>inline</EButton>
-                        <EButton size="small" disabled>disabled</EButton>
-                    </EGrid>
-                    <EDivider className="margin-y-10" size={12}>色彩属性</EDivider>
-                    <EGrid col={4} gap={10}>
+                <MButton className="margin-20"
+                    size="xsl"
+                    color="black"
+                    bgColor="red"
+                    plain
+                    plainSize="bold"
+                    loading
+                    long
+                >测试按钮</MButton>
+                <MTitleBar
+                    type="border-title"
+                    className="padding-5 solid-bottom" title="参数" subTitle="选择不同参数 来查看字体效果"></MTitleBar>
 
 
-                        {[
-                            'red',
-                            'orange',
-                            'yellow',
-                            'olive',
-                            'green',
-                            'cyan',
-                            'blue',
-                            'purple',
-                            'mauve',
-                            'pink',
-                            'brown',
-                            'black',
-                            'gary',
-                            'white',
-                        ].map((item, key) => {
-                            return <EButton size="small" type={item} circle>{item}</EButton>
-                        })}
+                <MNav
+                    title='Title'
+                    titleClassName="text-red text-right"
+                    titleStyle={{ width: "100px" }}
+                    className="solid-bottom text-md"
+                    items={navItems}
+                // onClick={(items, index) => this.onClickText(item, items, index)}
+                />
 
-                    </EGrid>
-
-                </EPanel>
-            </EPage>
-        );
+            </MLayout>
+        )
     }
 }

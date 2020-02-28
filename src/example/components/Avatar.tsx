@@ -1,115 +1,123 @@
-import Taro, { Component } from "@tarojs/taro";
-import { EPanel, EAvatar, EGrid } from 'miao-ui'
+import { View } from "@tarojs/components";
+import Taro, { Component, Config } from "@tarojs/taro";
+import { MLayout, MNavbar, MTitleBar, MGrid MCard, MText, Constant, MNav, MAvatar } from 'miao-ui'
+import "../index.scss";
 
-const headerArray = [
-    {
-        url: "https://mp-yys-1255362963.cos.ap-chengdu.myqcloud.com/head/330.jpg"
-    },
-    {
-        bgColor: "blue",
-        text: "M"
-    },
-    {
-        bgColor: "blue",
-        icon: "emoji"
-    },
-    {
-        url: "https://mp-yys-1255362963.cos.ap-chengdu.myqcloud.com/head/330.jpg",
-        tag: "female",
-        tagColor: "light-pink"
+import { MTextExample } from '../initParams'
+export default class Button extends Component {
+    config: Config = {
+        navigationBarTitleText: "Text"
+    };
+
+
+
+    constructor() {
+        super()
+        this.state = {
+            text: 'text 测试文字',
+        }
     }
-];
-export default class Avatar extends Component {
 
+
+    private onClickText(item, items, index) {
+        console.log(item)
+        item && this.setState({
+            [`${item}`]: items.text
+        })
+        console.log(this.state);
+    }
 
     render() {
+
+        const tabsNav = [
+            { text: 'A', icon: "home", id: 1 },
+            { text: 'B', icon: "home", id: 1 },
+            { text: 'C', icon: "home", id: 1 },
+        ];
+
+
+        const initParamsView = Object.keys(MTextExample).map((item) => {
+
+
+            if (typeof MTextExample[item] == "object") {
+
+                const navItems = MTextExample[item].map(it => {
+                    return {
+                        text: (typeof it === "boolean") ? (it ? 'Y' : 'N') : it,
+                    }
+                })
+                return <MNav
+                    title={item}
+                    titleClassName="text-red text-right"
+                    titleStyle={{ width: "100px" }}
+                    className="solid-bottom text-md"
+                    items={navItems}
+                    onClick={(items, index) => this.onClickText(item, items, index)}
+                />
+            }
+        })
+
+
+
+        const headerView = <MNavbar shadow>Text 演示</MNavbar>
+
+
+
+
+        const navItems = [
+            { text: 'A' },
+            { text: 'B' }
+        ]
+
+
+        const headerArray = [
+            {
+                //    url: 'https://mp-yys-1255362963.cos.ap-chengdu.myqcloud.com/head/330.jpg',
+                text: 'M',
+                tag: 'emoji',
+                icon: 'emoji',
+                bgColor: 'red',
+                tagColor: 'green'
+            }, {
+                bgColor: 'blue',
+                text: 'M'
+            }, {
+                bgColor: 'blue',
+                icon: 'emoji'
+            }, {
+                url: 'https://mp-yys-1255362963.cos.ap-chengdu.myqcloud.com/head/330.jpg',
+                tag: 'female',
+                tagColor: 'light-pink'
+            }
+        ]
+
         return (
-            <EPanel
-                title='Icon'
-                className="bg-white"
-                description="Icon 布局"
-                uri='/pages/demos/grid'
-                headerBorder
-                clearFixBottom
+            <MLayout
+                disable
+                header={headerView}
             >
 
 
-                <EGrid className="text-center" col={6} gap={10}>
+                <MAvatar text="AAA" headerArray={headerArray.slice(0, 1)} shape='radius' />
 
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="round"
-                        size="xs"
-                    />
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="round"
-                        size="sm"
-                    />
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="round"
-                        size="md"
-                    />
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="round"
-                        size="lg"
-                    />
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="round"
-                        size="xl"
-                    />
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="round"
-                        size="xxl"
-                    />
-                </EGrid>
+                <MAvatar headerArray={headerArray} shape='round' size="lg" />
 
-                <EGrid className="text-center" col={6} gap={10}>
 
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="radius"
-                        size="xs"
-                    />
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="radius"
-                        size="sm"
-                    />
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="radius"
-                        size="md"
-                    />
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="radius"
-                        size="lg"
-                    />
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="radius"
-                        size="xl"
-                    />
-                    <EAvatar
-                        headerArray={headerArray.slice(0, 1)}
-                        shape="radius"
-                        size="xxl"
-                    />
-                </EGrid>
+                <MTitleBar
+                    type="border-title"
+                    className="padding-5 solid-bottom" title="参数" subTitle="选择不同参数 来查看字体效果"></MTitleBar>
 
-                <EAvatar
-                    headerArray={headerArray}
-                    shape="round"
-                    size="xxl"
-                    shadow
+
+                <MNav
+                    title='Title'
+                    titleClassName="text-red text-right"
+                    titleStyle={{ width: "100px" }}
+                    className="solid-bottom text-md"
+                    items={navItems}
+                // onClick={(items, index) => this.onClickText(item, items, index)}
                 />
-            </EPanel>
 
-        );
+            </MLayout>
+        )
     }
 }

@@ -3,9 +3,9 @@ import { View } from "@tarojs/components";
             import { MLayout, MNavbar, MPanel, MGrid MIcon, Constant } from 'miao-ui'
             import { classNames } from "miao-ui/utils"
             import "../index.scss";
-            export default class Tabbar extends Component {
+            export default class Image extends Component {
                 config: Config = {
-                    navigationBarTitleText: "Tabbar"
+                    navigationBarTitleText: "Image"
                 };
 
                 render() {

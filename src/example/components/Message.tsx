@@ -1,55 +1,101 @@
 import { View } from "@tarojs/components";
-import Taro, { Component, useState } from "@tarojs/taro";
-import { EButton, ETitleBar, ELayout, ENavbar, ECard, EMessage } from 'miao-ui'
+import Taro, { Component, Config } from "@tarojs/taro";
+import { MLayout, MNavbar, MTitleBar, MGrid MCard, MText, Constant, MNav, MMessage } from 'miao-ui'
 import "../index.scss";
 
-
-export default class Text extends Component {
-
-
-    config = {
-        navigationBarTitleText: "Message 提示消息"
+import { MTextExample } from '../initParams'
+export default class Button extends Component {
+    config: Config = {
+        navigationBarTitleText: "Text"
     };
+
+
+    constructor() {
+        super()
+        this.state = {
+            text: 'text 测试文字',
+        }
+    }
+
+
+    private onClickText(item, items, index) {
+        console.log(item)
+        item && this.setState({
+            [`${item}`]: items.text
+        })
+        console.log(this.state);
+    }
 
     render() {
 
-        const [text, setText] = useState("");
-        const [show, setShow] = useState(false);
-        const [type, setType] = useState("info");
-        const [duration, setDuration] = useState(3);
-        const [bgColor, setBgcolor] = useState("");
-        const headerView = <View className="header"><ENavbar shadow>Message 提示消息</ENavbar></View>
+        const tabsNav = [
+            { text: 'A', icon: "home", id: 1 },
+            { text: 'B', icon: "home", id: 1 },
+            { text: 'C', icon: "home", id: 1 },
+        ];
 
+
+        const initParamsView = Object.keys(MTextExample).map((item) => {
+
+
+            if (typeof MTextExample[item] == "object") {
+
+                const navItems = MTextExample[item].map(it => {
+                    return {
+                        text: (typeof it === "boolean") ? (it ? 'Y' : 'N') : it,
+                    }
+                })
+                return <MNav
+                    title={item}
+                    titleClassName="text-red text-right"
+                    titleStyle={{ width: "100px" }}
+                    className="solid-bottom text-md"
+                    items={navItems}
+                    onClick={(items, index) => this.onClickText(item, items, index)}
+                />
+            }
+        })
+
+
+
+        const headerView = <MNavbar shadow>Text 演示</MNavbar>
+
+
+
+
+        const navItems = [
+            { text: 'A' },
+            { text: 'B' }
+        ]
         return (
-            <ELayout renderHeader={headerView}>
+            <MLayout
+                disable
+                header={headerView}
+            >
+
+                <MMessage
+                    message={"test message"}
+                    show={true}
+                    color="red"
+                   type={"card"}
+                    //duration={duration}
+                    bgColor="black"
+                />
+                <MTitleBar
+                    type="border-title"
+                    className="padding-5 solid-bottom" title="参数" subTitle="选择不同参数 来查看字体效果"></MTitleBar>
 
 
-
-                <EMessage
-                    className="bg-black text-lg"
-                    message={text}
-                    show={show}
-                    type={type}
-                    duration={duration}
-                    bgColor={bgColor}
+                <MNav
+                    title='Title'
+                    titleClassName="text-red text-right"
+                    titleStyle={{ width: "100px" }}
+                    className="solid-bottom text-md"
+                    items={navItems}
+                // onClick={(items, index) => this.onClickText(item, items, index)}
                 />
 
-                <ETitleBar title="类型" textColor="black" type="icon" subTitle="type" />
-
-                <EButton
-                    shape="round"
-                    bgColor="light-grey"
-                    onClick={() => {
-                        setText("这是一条提示的消息");
-                        setType("info");
-                        setShow(true);
-                        setDuration(3);
-                    }}
-                >
-                    提示
-                    </EButton>
-            </ELayout>
-
-        );
+            </MLayout>
+        )
     }
 }

@@ -1,6 +1,6 @@
 import { View } from "@tarojs/components";
 import Taro, { Component, Config } from "@tarojs/taro";
-import { MLayout, MNavbar, MTitleBar, MGrid MCard, MText, Constant, MNav, MTag } from 'miao-ui'
+import { MLayout, MNavbar, MTitleBar, MGrid MCard, MText, Constant, MNav, MDivider } from 'miao-ui'
 import "../index.scss";
 
 import { MTextExample } from '../initParams'
@@ -35,21 +35,7 @@ export default class Button extends Component {
             { text: 'C', icon: "home", id: 1 },
         ];
 
-        const tags ="sadfadf"
-        //[
-            // {
-            //     text: '文明',
-            //     color: 'light-blue'
-            // }
-            // , {
-            //     text: '和谐',
-            //     color: 'brown'
-            // }, {
-            //     text: '民主',
-            //     color: 'brown',
-            //     plain: true
-            // }
-    //    ]
+
         const initParamsView = Object.keys(MTextExample).map((item) => {
 
 
@@ -88,12 +74,7 @@ export default class Button extends Component {
                 header={headerView}
             >
 
-                <MTag className="margin-20"
-                    item={tags}
-                    badg="1"
-
-                    size="xsl"
-                />
+                <MDivider color="red">我是分割线</MDivider>
                 <MTitleBar
                     type="border-title"
                     className="padding-5 solid-bottom" title="参数" subTitle="选择不同参数 来查看字体效果"></MTitleBar>

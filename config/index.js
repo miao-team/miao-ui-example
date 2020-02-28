@@ -36,7 +36,7 @@ const config = {
    * View 变量设置
    */
   alias: {
-    "miao-ui": path.resolve(__dirname, "..", "src/miao-ui/src"),
+    "miao-ui": path.resolve(__dirname, "..", "src/miao-ui"),
   },
   defineConstants: {},
 
@@ -66,9 +66,9 @@ const config = {
     staticDirectory: "static",
     postcss: {
       autoprefixer: {
-        enable: true,
+        enable: false,
         config: {
-          browsers: ["last 3 versions", "Android >= 4.1", "ios >= 8"]
+          browsers: ["last 3 versions", "Android >= 4.1", "ios >= 8","chrome >= 42", "safari >= 8"]
         }
       },
       cssModules: {
